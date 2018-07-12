@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>tt ttr</title>
+<title>welcome to middlepole web application</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -76,11 +76,11 @@ div.dataTables_processing {
 		<footer class="main-footer">
 			<!-- To the right -->
 			<div class="pull-right hidden-xs">
-				v1.2.7
+				v0.0.0
 				<!--   <b><=InetAddress.getLocalHost().getHostName()%></b> -->
 			</div>
 			<!-- Default to the left request. InetAddress. -->
-			<strong>Cop <a href="#">tt</a></strong>
+			<strong>Copyright &copy; 2018  <a href="#"></a></strong>
 		</footer>
 		<!-- /.control-sidebar -->
 		<!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
