@@ -1,0 +1,3 @@
+com\middlepole\configuration\AppConfig.class
+com\middlepole\configuration\AppInitializer.class
+com\middlepole\controller\Page.class

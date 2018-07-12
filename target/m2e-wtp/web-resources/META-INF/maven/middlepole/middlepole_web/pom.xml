@@ -1,0 +1,208 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>middlepole</groupId>
+  <artifactId>middlepole_web</artifactId>
+  <version>0.0.1</version>
+
+  <name>middlepole_1</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <apachetiles.version>3.0.5</apachetiles.version>
+    <springframework.version>4.3.18.RELEASE</springframework.version>
+    <springframeworksecurity.version>4.2.3.RELEASE</springframeworksecurity.version>
+  </properties>
+
+  <dependencies>
+  
+  
+  <!-- apache tiles -->
+  <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-api -->
+	<dependency>
+    	<groupId>org.apache.tiles</groupId>
+   	 	<artifactId>tiles-api</artifactId>
+    	<version>${apachetiles.version}</version>
+	</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-core -->
+<dependency>
+    <groupId>org.apache.tiles</groupId>
+    <artifactId>tiles-core</artifactId>
+    <version>${apachetiles.version}</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet -->
+<dependency>
+    <groupId>org.apache.tiles</groupId>
+    <artifactId>tiles-servlet</artifactId>
+    <version>${apachetiles.version}</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
+<dependency>
+    <groupId>org.apache.tiles</groupId>
+    <artifactId>tiles-jsp</artifactId>
+    <version>${apachetiles.version}</version>
+</dependency>
+  
+  
+  <!-- spring framework -->
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>${springframework.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+    <version>${springframework.version}</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>${springframework.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot</artifactId>
+    <version>1.4.2.RELEASE</version>
+</dependency>
+
+  
+  <!-- servlet jsp jstl -->
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>javax.servlet.jsp</groupId>
+    <artifactId>javax.servlet.jsp-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+
+
+  
+  
+  <!-- spring security core -->
+  <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>${springframeworksecurity.version}</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>${springframeworksecurity.version}</version>
+</dependency>
+  
+  <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>${springframeworksecurity.version}</version>
+</dependency>
+  
+  <!-- commons -->
+<dependency>
+    <groupId>commons-lang</groupId>
+    <artifactId>commons-lang</artifactId>
+    <version>2.6</version>
+</dependency>
+  
+  <dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.2</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+<dependency>
+    <groupId>commons-httpclient</groupId>
+    <artifactId>commons-httpclient</artifactId>
+    <version>3.1</version>
+</dependency>
+
+<!-- logging -->
+
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.8</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.8</version>
+</dependency>
+
+
+  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    
+    
+    
+  </dependencies>
+  
+  <build>
+  	<pluginManagement>
+  		<plugins>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-compiler-plugin</artifactId>
+  				<version>3.2</version>
+  				<configuration>
+  					<source>1.7</source>
+  					<target>1.7</target>
+  				</configuration>
+  			</plugin>
+  	
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-war-plugin</artifactId>
+  				<version>2.4</version>
+  				<configuration>
+  					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+  					<warName>middlepole-web</warName>
+  					<failOnMissingWebXml>false</failOnMissingWebXml>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</pluginManagement>
+  	<finalName>middlepole-web</finalName>
+  </build>
+  
+  
+  
+  <packaging>war</packaging>
+</project>
