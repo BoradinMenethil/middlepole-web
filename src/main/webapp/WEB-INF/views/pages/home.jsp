@@ -28,7 +28,7 @@
 			<div class="col-md-12"> 
 				<div class="col-md-2">
 					<label class="input-group-btn">
-						<span class="btn btn-success"><input id="txtUpload" type="file" multiple="" />
+						<span class="btn btn-success"><input id="txtUpload" class="input" type="file" multiple="" />
 						</span>
 					</label>
 				
@@ -118,7 +118,8 @@ $(function(){
 			success: function(data){
 				$("#upload").button("reset");
 				console.table(data);
-				window.location.href = data.description;
+				download(data.description);
+				//window.location.href = data.description;
 				//window.open(data.description);
 				/*
 				var a = document.createElement('a');
@@ -137,9 +138,23 @@ $(function(){
 		
 		});
 	
-	function download() {
-	    window.location.href = "C:\\Users\\Boradin\\Desktop\\springproject\\SERVER\\wildfly-10.0.0.Final\\standalone\\deployments\\middlepole-web.war\\uploads\\report.csv";
+	function download(data) {
+		
+
+		// Construct the <a> element
+		var link = document.createElement("a");
+		link.download = 'report.csv';
+		link.href = data;
+
+		document.body.appendChild(link);
+		link.click();
+
+		// Cleanup the DOM
+		document.body.removeChild(link);
+		delete link;
+		
 	}
+	
 	
 	
 });
