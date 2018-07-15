@@ -13,10 +13,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>welcome to middlepole web application</title>
 <!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
-<!-- Bootstrap 3.3.6 -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/dist/css/skins/_all-skins.min.css">
+
 
 <style>
 .dataTables_wrapper {
@@ -52,6 +56,12 @@ div.dataTables_processing {
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
 
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.bundle.min.js"></script>		
+
 </head>
 <!-- BODY TAG OPTIONS: ================= Apply one or more of the following classes to get the desired effect |---------------------------------------------------------| | SKINS         | skin-blue                               | |               | skin-black                              | |               | skin-purple                             | |               | skin-yellow                             | |               | skin-red                                | |               | skin-green                              | |---------------------------------------------------------| |LAYOUT OPTIONS | fixed                                   | |               | layout-boxed                            | |               | layout-top-nav                          | |               | sidebar-collapse                        | |               | sidebar-mini                            | |---------------------------------------------------------| -->
 <body class="hold-transition skin-yellow sidebar-mini">
@@ -76,7 +86,7 @@ div.dataTables_processing {
 		<footer class="main-footer">
 			<!-- To the right -->
 			<div class="pull-right hidden-xs">
-				v0.0.0
+				v0.0.1 beta
 				<!--   <b><=InetAddress.getLocalHost().getHostName()%></b> -->
 			</div>
 			<!-- Default to the left request. InetAddress. -->
