@@ -52,9 +52,95 @@ public class Service {
 }
 	 * */
 	
+	/**
+	 * Save to session 
+	 * 
+	 * */
+	//consumes="multipart/form-data", consumes="text/plain", HttpOutputMessage output ,  produces = "multipart/form-data" 
+	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value="/convertTextToCsvFileS", produces = "application/json" )
+	@ResponseBody
+	public ResponseObject convertTextToCsvFileS(@RequestParam("textfile") MultipartFile file, HttpServletRequest request, HttpServletResponse response ) {
+		
+		 ResponseObject responseObject = new ResponseObject();
+		 String fileName = "";
+		try {
+			
+			file.transferTo(new File(file.getOriginalFilename()));
+			
+			byte[] bytes = file.getBytes();
+            String completeData = new String(bytes);
+
+			       
+			String[] rows = completeData.split("\t");
+			       
+			       Date today = new Date();
+			        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			        SimpleDateFormat csvDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			         
+			        
+			            List<String[]> csvDatas = new ArrayList();
+			             
+			            csvDatas.add(rows);
+			            //sdf.format(today) +
+			            String attch = "attachment; filename=\"" + "report"+  ".csv\"";
+			            
+			            fileName = "report.csv";
+			            
+			            //text/csv
+			            response.setContentType("application/download");
+			            response.setHeader("Content-Disposition", attch);
+			             
+			        //start to write CSV File as response
+			            ServletOutputStream os = null;
+			            OutputStream buffOs = null;
+			            OutputStreamWriter osWriter = null;
+			            CSVWriter csvWriter = null;
+			            try { 
+			            	 os = response.getOutputStream();
+			                 buffOs = new BufferedOutputStream(os); 
+			                 osWriter = new OutputStreamWriter(buffOs);
+			                 csvWriter = new CSVWriter(osWriter,'\t');
+			                csvWriter.writeAll(csvDatas, false);
+			                
+			                request.getSession().setAttribute("report", osWriter);
+			                
+			             
+			        } catch (IOException e) {
+			            System.out.println("failed to generate CSV file : " + e.getMessage());
+			        }finally {
+			        	
+			        	
+			        	    os.flush();
+			                os.close();
+			               
+			                /*  buffOs.flush();
+			                buffOs.close();
+			                csvWriter.close(); 
+			                osWriter.flush();  
+			                osWriter.close();*/
+			              
+			        }
+			       
+			       
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		responseObject.setDescription(fileName);
+		
+		return responseObject;
+		
+	}
 
 
-	
+	/**
+	 * G is working good but could not find a way to save file on openshift server
+	 * 
+	 * */
 	@RequestMapping(method = RequestMethod.POST, value="/convertTextToCsvFileG", produces = "application/json" )
 	@ResponseBody
 	public ResponseObject convertTextToCsvFileG(@RequestParam("textfile") MultipartFile file, HttpServletResponse response, HttpServletRequest request ) {
@@ -92,7 +178,7 @@ public class Service {
 			        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			        SimpleDateFormat csvDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
-                    String filePath = realPathtoUploads + "\\" + "report.csv";
+                    String filePath = realPathtoUploads + "report.csv";
                     File dest = new File(filePath);
                     
                     CSVWriter writer = new CSVWriter(new FileWriter(dest), ',', CSVWriter.NO_QUOTE_CHARACTER);
