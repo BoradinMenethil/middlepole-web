@@ -56,7 +56,7 @@ public class Service {
 }
 	 * */
 	
-	 @RequestMapping(method = RequestMethod.GET, value="/doGet", produces = "text/csv")
+	 @RequestMapping(method = RequestMethod.POST, value="/doGet", produces = "text/csv")
 	 @ResponseBody
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
