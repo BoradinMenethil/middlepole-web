@@ -157,6 +157,8 @@ public class Service {
             //f
             String uploadsDir = "/uploads/";
             String realPathtoUploads = System.getenv("OPENSHIFT_DATA_DIR") + "/uploads/";
+            System.out.println("dddddddeeeee");
+            System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("OPENSHIFT_DATA_DIR").toString());
            // String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
             if(! new File(realPathtoUploads).exists())
             {
