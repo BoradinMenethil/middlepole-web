@@ -80,6 +80,37 @@ public class Service {
 	        output.close();
 	    }
 
+	 
+	 @RequestMapping(method = RequestMethod.GET, value="/doGet2", produces = "text/csv")
+	 @ResponseBody
+	 protected void doGet2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	        String filePath = request.getRequestURI();
+	        System.out.println("lood5");
+	        File file = new File("/opt/app-root/src/uploads/report.csv");
+	        InputStream input = new FileInputStream(file);
+	        System.out.println("lood6");
+	        response.setContentLength((int) file.length());
+	        response.setContentType(new MimetypesFileTypeMap().getContentType(file));
+	        String attch = "attachment; filename=\"" + "report" +  ".csv\"";
+	        response.setContentType("application/download");
+            response.setHeader("Content-Disposition", attch);
+
+	        OutputStream output = response.getOutputStream();
+	        byte[] bytes = new byte[BUFFER_LENGTH];
+	        int read = 0;
+	        while ((read = input.read(bytes, 0, BUFFER_LENGTH)) != -1) {
+	            output.write(bytes, 0, read);
+	            output.flush();
+	        }
+
+	        input.close();
+	        output.close();
+	        
+	        
+	        
+	        
+	    }
 
 
 	/**

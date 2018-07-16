@@ -122,7 +122,7 @@ $(function(){
 				
 				$.ajax({
 					url: "${pageContext.request.contextPath}/service/doGet",
-					dataType: 'script',
+					dataType: 'text/csv',
 					cache: false,
 					contentType: false,
 					processData: false,
