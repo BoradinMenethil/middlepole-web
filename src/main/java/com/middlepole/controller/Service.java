@@ -102,7 +102,7 @@ public class Service {
 			                 csvWriter = new CSVWriter(osWriter,'\t');
 			                csvWriter.writeAll(csvDatas, false);
 			                
-			                request.getSession().setAttribute("report", osWriter);
+			                request.getSession().setAttribute("report", response.getOutputStream());
 			                
 			             
 			        } catch (IOException e) {
@@ -110,8 +110,8 @@ public class Service {
 			        }finally {
 			        	
 			        	
-			        	    os.flush();
-			                os.close();
+			        	  //  os.flush();
+			              //  os.close();
 			               
 			                /*  buffOs.flush();
 			                buffOs.close();
@@ -156,7 +156,8 @@ public class Service {
             
             //f
             String uploadsDir = "/uploads/";
-            String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
+            String realPathtoUploads = System.getenv("OPENSHIFT_DATA_DIR") + "/uploads/";
+           // String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
             if(! new File(realPathtoUploads).exists())
             {
                 new File(realPathtoUploads).mkdir();
@@ -178,7 +179,7 @@ public class Service {
 			        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 			        SimpleDateFormat csvDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
-                    String filePath = realPathtoUploads + "report.csv";
+                    String filePath = realPathtoUploads  + "report.csv";
                     File dest = new File(filePath);
                     
                     CSVWriter writer = new CSVWriter(new FileWriter(dest), ',', CSVWriter.NO_QUOTE_CHARACTER);
@@ -197,19 +198,76 @@ public class Service {
 	}
 	
 	
+	
+	//consumes="multipart/form-data", consumes="text/plain", HttpOutputMessage output ,  produces = "multipart/form-data" 
+		@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value="/download" )
+		@ResponseBody
+		public ResponseObject download(HttpServletResponse response, HttpServletRequest request ) {
+			
+			 ResponseObject responseObject = new ResponseObject();
+			 String fileName = "";
+			try {
+				
+				String uploadsDir = "/uploads/";
+	            String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
+	           
+				            
+				            //text/csv
+				            response.setContentType("application/download");
+				   //         response.setHeader("Content-Disposition", attch);
+				             
+				        //start to write CSV File as response
+				            ServletOutputStream os = null;
+				            OutputStream buffOs = null;
+				            OutputStreamWriter osWriter = null;
+				            CSVWriter csvWriter = null;
+				            try { 
+				            	 os = response.getOutputStream();
+				                 buffOs = new BufferedOutputStream(os); 
+				                 osWriter = new OutputStreamWriter(buffOs);
+				                 csvWriter = new CSVWriter(osWriter,'\t');
+				             //   csvWriter.writeAll(csvDatas, false);
+				                
+				                
+				             
+				        } catch (IOException e) {
+				            System.out.println("failed to generate CSV file : " + e.getMessage());
+				        }finally {
+				        	
+				        	
+				        	    os.flush();
+				                os.close();
+				               
+				                /*  buffOs.flush();
+				                buffOs.close();
+				                csvWriter.close(); 
+				                osWriter.flush();  
+				                osWriter.close();*/
+				              
+				        }
+				       
+				       
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			responseObject.setDescription(fileName);
+			
+			return responseObject;
+		}
+		
+	
 
 	//consumes="multipart/form-data", consumes="text/plain", HttpOutputMessage output ,  produces = "multipart/form-data" 
-	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value="/download" )
+	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value="/downloadd" )
 	@ResponseBody
-	public ResponseObject download(HttpServletResponse response, HttpServletRequest request ) {
+	public ResponseObject downloadd(HttpServletResponse response, HttpServletRequest request ) {
 		
 		 ResponseObject responseObject = new ResponseObject();
-		 String fileName = "";
-		try {
-			
-			String uploadsDir = "/uploads/";
-            String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
-           
 			            
 			            //text/csv
 			            response.setContentType("application/download");
@@ -217,44 +275,10 @@ public class Service {
 			             
 			        //start to write CSV File as response
 			            ServletOutputStream os = null;
-			            OutputStream buffOs = null;
-			            OutputStreamWriter osWriter = null;
-			            CSVWriter csvWriter = null;
-			            try { 
-			            	 os = response.getOutputStream();
-			                 buffOs = new BufferedOutputStream(os); 
-			                 osWriter = new OutputStreamWriter(buffOs);
-			                 csvWriter = new CSVWriter(osWriter,'\t');
-			             //   csvWriter.writeAll(csvDatas, false);
-			                
-			                
-			             
-			        } catch (IOException e) {
-			            System.out.println("failed to generate CSV file : " + e.getMessage());
-			        }finally {
-			        	
-			        	
-			        	    os.flush();
-			                os.close();
-			               
-			                /*  buffOs.flush();
-			                buffOs.close();
-			                csvWriter.close(); 
-			                osWriter.flush();  
-			                osWriter.close();*/
-			              
-			        }
-			       
-			       
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			            	os = (ServletOutputStream) request.getSession().getAttribute("report"); 
+			            
 		
-		responseObject.setDescription(fileName);
+		responseObject.setDescription("");
 		
 		return responseObject;
 	}

@@ -117,6 +117,7 @@ $(function(){
 			},
 			success: function(data){
 				$("#upload").button("reset");
+					
 				console.table(data);
 				download(data.description);
 				//window.location.href = data.description;
