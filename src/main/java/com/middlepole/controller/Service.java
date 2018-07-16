@@ -61,10 +61,10 @@ public class Service {
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	        String filePath = request.getRequestURI();
-
-	        File file = new File(System.getenv("HOME") + filePath.replace("/uploads/",""));
+	        System.out.println("lood5");
+	        File file = new File("/opt/app-root/src/uploads/report.csv");
 	        InputStream input = new FileInputStream(file);
-
+	        System.out.println("lood6");
 	        response.setContentLength((int) file.length());
 	        response.setContentType(new MimetypesFileTypeMap().getContentType(file));
 
@@ -94,23 +94,27 @@ public class Service {
 		 String fileName = "";
 		try {
 			
-			file.transferTo(new File(file.getOriginalFilename()));
+			System.out.println("lood1");
+			//file.transferTo(new File(file.getOriginalFilename()));
 			
 			byte[] bytes = file.getBytes();
+			System.out.println("lood2");
             String completeData = new String(bytes);
             
             //f
             String uploadsDir = "/uploads/";
-            String realPathtoUploads = System.getenv("HOME");
+            String realPathtoUploads = "/opt/app-root/src/uploads/";
             System.out.println("dddddddeeeee");
             System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("HOME"));
            // String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
+            
+            System.out.println("lood3");
             if(! new File(realPathtoUploads).exists())
             {
                 new File(realPathtoUploads).mkdir();
             }
 			  //f
-            
+            System.out.println("lood4");
             List<String[]> result = new ArrayList<>();
 			String[] rows = completeData.split("\n");
 			
