@@ -12,6 +12,11 @@
 <h1>Text to CSV without $ sign</h1>
 </header>
 
+<form action='/doGet' method='POST' id='formid'>
+                <input type='hidden' value='' name='name' id='id'/>
+                <input type='hidden' value=' ' name='name'  id='id' />
+            </form>
+
 <section class="content">
 	<div class="box">
 		<div class="box-header with-border">
@@ -120,24 +125,7 @@ $(function(){
 					
 				console.table(data);
 				
-				
-				$.ajax({
-				    url: "/opt/app-root/src/uploads/",
-				    type: "GET",
-				    dataType: "text",
-
-				    success: function (data) {
-				        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(data);
-				        var link = document.createElement("a");
-						link.download = 'report.csv';
-						link.href = csvData;
-						document.body.appendChild(link);
-						link.click();
-						// Cleanup the DOM
-						document.body.removeChild(link);
-						delete link;
-				    }
-				}); // ajax
+				$('#formid').submit();
 				
 				/*
 				$.ajax({
