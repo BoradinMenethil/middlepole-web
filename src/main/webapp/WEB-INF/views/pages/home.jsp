@@ -119,7 +119,9 @@ $(function(){
 				$("#upload").button("reset");
 					
 				console.table(data);
-				download(data.description);
+				doGet("${pageContext.request.contextPath}/service/doGet");
+				
+				//download(data.description);
 				//window.location.href = data.description;
 				//window.open(data.description);
 				/*
@@ -138,6 +140,23 @@ $(function(){
 		});
 		
 		});
+	
+	function doGet(data) {
+		
+
+		// Construct the <a> element
+		var link = document.createElement("a");
+		//link.download = 'report.csv';
+		link.href = data;
+
+		document.body.appendChild(link);
+		link.click();
+
+		// Cleanup the DOM
+		document.body.removeChild(link);
+		delete link;
+		
+	}
 	
 	function download(data) {
 		

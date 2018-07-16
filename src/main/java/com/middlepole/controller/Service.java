@@ -3,6 +3,7 @@ package com.middlepole.controller;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +45,8 @@ import com.opencsv.CSVWriter;
 @RequestMapping("/service")
 public class Service {
 
-	
+	 private static final long serialVersionUID = 2857847752169838915L;
+	 int BUFFER_LENGTH = 4096;
 	/*
 	@RequestMapping(value = "/getFullData2.html", method = RequestMethod.GET, consumes = "text/csv")
 	@ResponseBody // indicate to use a compatible HttpMessageConverter
@@ -52,89 +56,30 @@ public class Service {
 }
 	 * */
 	
-	/**
-	 * Save to session 
-	 * 
-	 * */
-	//consumes="multipart/form-data", consumes="text/plain", HttpOutputMessage output ,  produces = "multipart/form-data" 
-	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value="/convertTextToCsvFileS", produces = "application/json" )
-	@ResponseBody
-	public ResponseObject convertTextToCsvFileS(@RequestParam("textfile") MultipartFile file, HttpServletRequest request, HttpServletResponse response ) {
-		
-		 ResponseObject responseObject = new ResponseObject();
-		 String fileName = "";
-		try {
-			
-			file.transferTo(new File(file.getOriginalFilename()));
-			
-			byte[] bytes = file.getBytes();
-            String completeData = new String(bytes);
+	 @RequestMapping(method = RequestMethod.POST, value="/doGet")
+	 @ResponseBody
+	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			       
-			String[] rows = completeData.split("\t");
-			       
-			       Date today = new Date();
-			        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			        SimpleDateFormat csvDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			         
-			        
-			            List<String[]> csvDatas = new ArrayList();
-			             
-			            csvDatas.add(rows);
-			            //sdf.format(today) +
-			            String attch = "attachment; filename=\"" + "report"+  ".csv\"";
-			            
-			            fileName = "report.csv";
-			            
-			            //text/csv
-			            response.setContentType("application/download");
-			            response.setHeader("Content-Disposition", attch);
-			             
-			        //start to write CSV File as response
-			            ServletOutputStream os = null;
-			            OutputStream buffOs = null;
-			            OutputStreamWriter osWriter = null;
-			            CSVWriter csvWriter = null;
-			            try { 
-			            	 os = response.getOutputStream();
-			                 buffOs = new BufferedOutputStream(os); 
-			                 osWriter = new OutputStreamWriter(buffOs);
-			                 csvWriter = new CSVWriter(osWriter,'\t');
-			                csvWriter.writeAll(csvDatas, false);
-			                
-			                request.getSession().setAttribute("report", response.getOutputStream());
-			                
-			             
-			        } catch (IOException e) {
-			            System.out.println("failed to generate CSV file : " + e.getMessage());
-			        }finally {
-			        	
-			        	
-			        	  //  os.flush();
-			              //  os.close();
-			               
-			                /*  buffOs.flush();
-			                buffOs.close();
-			                csvWriter.close(); 
-			                osWriter.flush();  
-			                osWriter.close();*/
-			              
-			        }
-			       
-			       
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		responseObject.setDescription(fileName);
-		
-		return responseObject;
-		
-	}
+	        String filePath = request.getRequestURI();
+
+	        File file = new File(System.getenv("OPENSHIFT_DATA_DIR") + filePath.replace("/uploads/",""));
+	        InputStream input = new FileInputStream(file);
+
+	        response.setContentLength((int) file.length());
+	        response.setContentType(new MimetypesFileTypeMap().getContentType(file));
+
+	        OutputStream output = response.getOutputStream();
+	        byte[] bytes = new byte[BUFFER_LENGTH];
+	        int read = 0;
+	        while ((read = input.read(bytes, 0, BUFFER_LENGTH)) != -1) {
+	            output.write(bytes, 0, read);
+	            output.flush();
+	        }
+
+	        input.close();
+	        output.close();
+	    }
+
 
 
 	/**
@@ -156,9 +101,9 @@ public class Service {
             
             //f
             String uploadsDir = "/uploads/";
-            String realPathtoUploads = System.getenv("OPENSHIFT_DATA_DIR") + "/uploads/";
+            String realPathtoUploads = System.getenv("OPENSHIFT_DATA_DIR");
             System.out.println("dddddddeeeee");
-            System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("OPENSHIFT_DATA_DIR").toString());
+            System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("OPENSHIFT_DATA_DIR"));
            // String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
             if(! new File(realPathtoUploads).exists())
             {
