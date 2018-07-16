@@ -62,7 +62,7 @@ public class Service {
 
 	        String filePath = request.getRequestURI();
 
-	        File file = new File(System.getenv("OPENSHIFT_DATA_DIR") + filePath.replace("/uploads/",""));
+	        File file = new File(System.getenv("HOME") + filePath.replace("/uploads/",""));
 	        InputStream input = new FileInputStream(file);
 
 	        response.setContentLength((int) file.length());
@@ -101,9 +101,9 @@ public class Service {
             
             //f
             String uploadsDir = "/uploads/";
-            String realPathtoUploads = System.getenv("OPENSHIFT_DATA_DIR");
+            String realPathtoUploads = System.getenv("HOME");
             System.out.println("dddddddeeeee");
-            System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("OPENSHIFT_DATA_DIR"));
+            System.out.println("System.getenv(\"OPENSHIFT_DATA_DIR\")" + System.getenv("HOME"));
            // String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
             if(! new File(realPathtoUploads).exists())
             {
