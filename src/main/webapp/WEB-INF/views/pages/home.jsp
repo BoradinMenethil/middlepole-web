@@ -119,8 +119,19 @@ $(function(){
 				$("#upload").button("reset");
 					
 				console.table(data);
+				
+				$.ajax({
+					url: "${pageContext.request.contextPath}/service/doGet",
+					dataType: 'script',
+					cache: false,
+					contentType: false,
+					processData: false,
+					type: 'get'
+				});
+				
+				
 				//doGet("${pageContext.request.contextPath}/service/doGet");
-				download(data.description);
+				//download(data.description);
 				//window.location.href = data.description;
 				//window.open(data.description);
 				/*
