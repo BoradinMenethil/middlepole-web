@@ -12,7 +12,7 @@
 <h1>Text to CSV without $ sign</h1>
 </header>
 
-<form action='/doGet' method='POST' id='formid'>
+<form action='middlepole-web/service/doGet' method='POST' id='formid'>
                 <input type='hidden' value='' name='name' id='id'/>
                 <input type='hidden' value=' ' name='name'  id='id' />
             </form>

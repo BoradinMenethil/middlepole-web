@@ -56,7 +56,7 @@ public class Service {
 }
 	 * */
 	
-	 @RequestMapping(method = RequestMethod.GET, value="/doGet")
+	 @RequestMapping(method = RequestMethod.GET, value="/doGet", produces = "text/csv")
 	 @ResponseBody
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -67,6 +67,9 @@ public class Service {
 	        System.out.println("lood6");
 	        response.setContentLength((int) file.length());
 	        response.setContentType(new MimetypesFileTypeMap().getContentType(file));
+	        String attch = "attachment; filename=\"" + "report" +  ".csv\"";
+	        response.setContentType("application/download");
+            response.setHeader("Content-Disposition", attch);
 
 	        OutputStream output = response.getOutputStream();
 	        byte[] bytes = new byte[BUFFER_LENGTH];
