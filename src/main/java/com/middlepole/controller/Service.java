@@ -56,7 +56,7 @@ public class Service {
 }
 	 * */
 	
-	 @RequestMapping(method = RequestMethod.POST, value="/doGet")
+	 @RequestMapping(method = RequestMethod.GET, value="/doGet")
 	 @ResponseBody
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
