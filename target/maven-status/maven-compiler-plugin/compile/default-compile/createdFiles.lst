@@ -1,0 +1,9 @@
+com\middlepole\model\CsvClass.class
+com\middlepole\model\CsvResponse.class
+com\middlepole\controller\Service.class
+com\middlepole\configuration\AppConfig.class
+com\middlepole\tools\Converter.class
+com\middlepole\configuration\AppInitializer.class
+com\middlepole\controller\Page.class
+com\middlepole\model\ResponseObject.class
+com\middlepole\model\FileUpload.class
