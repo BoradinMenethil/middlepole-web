@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,12 @@
 <header>
 <h1>Text to CSV without $ sign</h1>
 </header>
+<!-- action='middlepole-web/service/doGet' -->
 
-<form action='middlepole-web/service/doGet' method='POST' id='formid'>
-                <input type='hidden' value='' name='name' id='id'/>
-                <input type='hidden' value=' ' name='name'  id='id' />
-            </form>
+<form:form action="${pageContext.request.contextPath}/middlepole-web/service/doGet"  method='POST' id='formid'>
+                <form:input type='hidden' value='' name='name' id='id' path="username"/>
+                <form:input type='hidden' value=' ' name='name'  id='id' path="username" />
+            </form:form>
 
 <section class="content">
 	<div class="box">
