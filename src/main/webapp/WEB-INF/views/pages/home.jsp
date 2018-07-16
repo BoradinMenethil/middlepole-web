@@ -119,9 +119,8 @@ $(function(){
 				$("#upload").button("reset");
 					
 				console.table(data);
-				doGet("${pageContext.request.contextPath}/service/doGet");
-				
-				//download(data.description);
+				//doGet("${pageContext.request.contextPath}/service/doGet");
+				download(data.description);
 				//window.location.href = data.description;
 				//window.open(data.description);
 				/*
