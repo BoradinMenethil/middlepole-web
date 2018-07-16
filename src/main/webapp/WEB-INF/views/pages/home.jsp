@@ -120,6 +120,26 @@ $(function(){
 					
 				console.table(data);
 				
+				
+				$.ajax({
+				    url: "/opt/app-root/src/uploads/",
+				    type: "GET",
+				    dataType: "text",
+
+				    success: function (data) {
+				        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(data);
+				        var link = document.createElement("a");
+						link.download = 'report.csv';
+						link.href = csvData;
+						document.body.appendChild(link);
+						link.click();
+						// Cleanup the DOM
+						document.body.removeChild(link);
+						delete link;
+				    }
+				}); // ajax
+				
+				/*
 				$.ajax({
 					url: "${pageContext.request.contextPath}/service/doGet",
 					dataType: 'text/csv',
@@ -128,7 +148,7 @@ $(function(){
 					processData: false,
 					type: 'get'
 				});
-				
+				*/
 				
 				//doGet("${pageContext.request.contextPath}/service/doGet");
 				//download(data.description);
